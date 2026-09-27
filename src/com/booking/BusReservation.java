@@ -110,8 +110,10 @@ public class BusReservation {
                 selectedSeats.add(seat);
 
                 // Check already booked seat
-                try (PreparedStatement ps = con.prepareStatement(
-                        "SELECT booking_id FROM bookings WHERE bus_id=? AND seat_number=?")) {
+                try (
+                		PreparedStatement ps = con.prepareStatement(
+                        
+                		"SELECT booking_id FROM bookings WHERE bus_id=? AND seat_number=?")) {
 
                     ps.setInt(1, busId);
                     ps.setInt(2, seat);
@@ -119,8 +121,7 @@ public class BusReservation {
                     try (ResultSet rs = ps.executeQuery()) {
 
                         if (rs.next())
-                            throw new SQLException(
-                                    "Seat " + seat + " is already booked.");
+                            throw new SQLException("Seat " + seat + " is already booked.");
                     }
                 }
 
@@ -144,7 +145,8 @@ public class BusReservation {
                 }
 
                 // Insert booking
-                try (PreparedStatement ps = con.prepareStatement(
+                try (
+                		PreparedStatement ps = con.prepareStatement(
                         "INSERT INTO bookings(bus_id,passenger_id,seat_number) VALUES(?,?,?)")) {
 
                     ps.setInt(1, busId);
@@ -188,8 +190,7 @@ public class BusReservation {
         String sql = "DELETE FROM bookings WHERE booking_id=?";
         
         try (Connection con = getConnection();
-             
-        		PreparedStatement ps = con.prepareStatement(sql)) {
+              PreparedStatement ps = con.prepareStatement(sql)) {
            
         	System.out.print("Booking ID: ");
             ps.setInt(1, Integer.parseInt(sc.nextLine()));
